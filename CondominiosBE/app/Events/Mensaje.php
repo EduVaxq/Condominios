@@ -14,7 +14,7 @@ class Mensaje implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    // Estas dos variables se convertirán mágicamente en nuestro JSON en el Frontend
+    
     public $tipo;
     public $mensaje;
 
@@ -26,7 +26,7 @@ class Mensaje implements ShouldBroadcastNow
 
     public function broadcastOn(): array
     {
-        // Cambiamos el canal para que sea exclusivo de notificaciones
+        
         return [
             new Channel('notificaciones-vecinales'),
         ];
@@ -34,7 +34,7 @@ class Mensaje implements ShouldBroadcastNow
 
     public function broadcastAs(): string
     {
-        // Este es el nombre del evento que React está escuchando
+        
         return 'nueva-notificacion';
     }
 }
