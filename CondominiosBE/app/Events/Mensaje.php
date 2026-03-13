@@ -14,23 +14,27 @@ class Mensaje implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    // Estas dos variables se convertirán mágicamente en nuestro JSON en el Frontend
+    public $tipo;
+    public $mensaje;
 
-    public $textoMensaje;
-
-    public function __construct($textoMensaje)
+    public function __construct($tipo, $mensaje)
     {
-        $this->textoMensaje = $textoMensaje;
+        $this->tipo = $tipo;
+        $this->mensaje = $mensaje;
     }
+
     public function broadcastOn(): array
     {
+        // Cambiamos el canal para que sea exclusivo de notificaciones
         return [
-            new Channel('chat-vecinal'),
+            new Channel('notificaciones-vecinales'),
         ];
     }
 
-
     public function broadcastAs(): string
     {
-        return 'nuevo-mensaje';
+        // Este es el nombre del evento que React está escuchando
+        return 'nueva-notificacion';
     }
 }
